@@ -7,6 +7,7 @@ configure({
 class PostStore {
   posts: any[] = [];
   loading: boolean = false;
+  page: number = 1;
   userStore;
 
   constructor() {
@@ -21,6 +22,7 @@ class PostStore {
         `https://jsonplaceholder.typicode.com/posts?userId=${this.userStore.me.id}&_limit=3&_page=${page}`,
       );
       this.posts = response.data;
+      this.page = page;
     } catch (error) {
       console.error('Failed to fetch posts', error);
     } finally {

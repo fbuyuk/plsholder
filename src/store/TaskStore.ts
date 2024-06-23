@@ -9,6 +9,7 @@ class TaskStore {
   loading: boolean = false;
   completedTasks: number = 0;
   incompleteTasks: number = 0;
+  page: number = 1;
   userStore;
   constructor() {
     makeAutoObservable(this);
@@ -22,6 +23,7 @@ class TaskStore {
         `https://jsonplaceholder.typicode.com/todos?userId=${this.userStore.me.id}&_limit=3&_page=${page}`,
       );
       this.tasks = response.data;
+      this.page = page;
     } catch (error) {
       console.error('Failed to fetch tasks', error);
     } finally {

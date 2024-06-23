@@ -8,7 +8,7 @@ import userStore from "../../store/UserStore";
 import { observer } from "mobx-react-lite";
 import Pagination from "../../components/Pagination";
 const Users: React.FC = observer(() => {
-  const { users, fetchUsers, loading, favorites, getFavs } = userStore;
+  const { users, fetchUsers, loading, favorites, getFavs, page } = userStore;
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Users: React.FC = observer(() => {
         <ActivityIndicator size="large" color={Colors.text} />
       ) : (
         <FlatList
-          ListHeaderComponent={() => <Pagination length={3} onPress={(page) => { fetchUsers(page) }} />}
+          ListHeaderComponent={() => <Pagination activePage={page} length={3} onPress={(page) => { fetchUsers(page) }} />}
           data={users}
           renderItem={({ item, index }) => {
             return <UserListItem key={index} fav={favorites.includes(item.id)} item={item} onPress={() => openBottomSheet(item)} />

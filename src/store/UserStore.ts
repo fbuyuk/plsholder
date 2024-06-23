@@ -12,7 +12,7 @@ class UserStore {
   users: any[] = [];
   favorites: any[] = [];
   loading: boolean = false;
-
+  page: number = 1;
   constructor() {
     makeAutoObservable(this);
   }
@@ -24,6 +24,7 @@ class UserStore {
         `https://jsonplaceholder.typicode.com/users?_limit=4&_page=${page}`,
       );
       this.users = response.data;
+      this.page = page;
     } catch (error) {
       console.error('Failed to fetch users', error);
     } finally {

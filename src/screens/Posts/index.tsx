@@ -6,7 +6,7 @@ import postStore from "../../store/PostStore";
 import { observer } from "mobx-react-lite";
 import Pagination from "../../components/Pagination";
 const Posts: React.FC = observer(() => {
-    const { posts, fetchPosts, loading } = postStore;
+    const { posts, fetchPosts, loading, page } = postStore;
 
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Posts: React.FC = observer(() => {
                 <ActivityIndicator size="large" color={Colors.text} />
             ) : (
                 <FlatList
-                    ListHeaderComponent={() => <Pagination length={4} onPress={(page) => { fetchPosts(page) }} />}
+                    ListHeaderComponent={() => <Pagination activePage={page} length={4} onPress={(page) => { fetchPosts(page) }} />}
                     data={posts}
                     renderItem={({ item, index }) => <PostListItem key={index} item={item} />}
                 />

@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import TaskListItem from "../../components/TaskListItem";
 import Pagination from "../../components/Pagination";
 const Tasks: React.FC = observer(() => {
-    const { tasks, fetchTasks, loading } = taskStore;
+    const { tasks, fetchTasks, loading, page } = taskStore;
 
     useEffect(() => {
         fetchTasks(1);
@@ -18,7 +18,7 @@ const Tasks: React.FC = observer(() => {
                 <ActivityIndicator size="large" color={Colors.text} />
             ) : (
                 <FlatList
-                    ListHeaderComponent={() => <Pagination length={7} onPress={(page) => { fetchTasks(page) }} />}
+                    ListHeaderComponent={() => <Pagination activePage={page} length={7} onPress={(page) => { fetchTasks(page) }} />}
                     data={tasks}
                     renderItem={({ item, index }) => <TaskListItem key={index} item={item} />}
                 />
